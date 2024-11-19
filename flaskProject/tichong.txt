@@ -1,0 +1,14 @@
+'''
+@app.route('/')
+def hello_world():  # put application's code here
+    return 'Hello World!'
+
+@app.route('/item/<id>')
+def item(id):
+    return 'Item:{}'.format(id)
+
+@app.route('/people/')
+def people():
+    name = request.args.get('name','default_name')
+    return f"name = (name)"
+'''

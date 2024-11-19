@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>静态</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <script src="{{ url_for('static',filename='js/myjs.js')}}"></script>
+</head>
+<body>
+<img src="{{ url_for('static',filename='images/团子.jpg')}}" alt="">
+</body>
+</html>
