@@ -1,4 +1,4 @@
-SECRET_KEY = "asfasfasdfageasd"
+SECRET_KEY = "asfasfasdfageasd"#设置加密长度
 
 #数据库配置信息
 HOSTNAME = "127.0.0.1"
