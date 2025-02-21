@@ -1,0 +1,56 @@
+body {
+    background-color: rgb(245, 245, 245) !important;
+}
+
+p {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.container {
+    max-width: 640px !important;
+}
+
+.hello-form {
+    margin-bottom: 20px;
+}
+
+header {
+    margin: 50px 0 40px 0;
+}
+
+header h1 {
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.sub-title {
+    font-size: 24px;
+}
+
+@media screen and (max-width: 600px) {
+    .sub-title {
+        display: block;
+    }
+}
+
+header a {
+    text-decoration: none !important;
+}
+
+footer {
+    margin: 20px;
+}
+
+.form-group {
+            margin-bottom: 20px; /* 每个字段之间的间距 */
+        }
+
+        .form-group label {
+            display: block; /* 标签显示为块级元素，使其在输入框上方 */
+            margin-bottom: 5px; /* 标签与输入框之间的间距 */
+        }
+
+        .btn {
+            margin-top: 10px; /* 按钮与输入字段的间距 */
+        }

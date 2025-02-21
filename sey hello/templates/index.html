@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="post">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Message</label>
+            <input type="text" id="message" name="message" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+            <label for="cipher">欢迎来到</label>
+            <input type="text" id="cipher" name="cipher" autocomplete="off" required>
+        </div>
+        <input class="btn" type="submit" name="submit" value="Submit">
+    </form>
+
+
+{#{% from 'bootstrap/form.html' import render_form %}#}
+{##}
+{#{% block content %}#}
+{#    <div class="hello-form">#}
+{#        {{ render_form(form, action=request.full_path) }}#}
+{#    </div>#}
+{#    <h5>{{ messages|length }} messages#}
+{#        <small class="float-right">#}
+{#            <a href="#bottom" title="Go Bottom">&darr;</a>#}
+{#        </small>#}
+{#    </h5>#}
+{% if questions %}
+    <div class="list-group">
+        {% for question in questions %}
+            <a class="list-group-item list-group-item-action flex-column">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1 text-success">{{ question.name }}
+                        <small class="text-muted"> #{{ loop.revindex }}</small>
+                    </h5>
+                    <small data-toggle="tooltip" data-placement="top"
+                           data-time="{{ question.time.strftime('%Y-%m-%dT%H:%M:%SZ') }}"
+                           data-delay="5">
+{#                           data-delay="5"> 加了这个延迟之后显示的时间是现在的，而不是数据添加的时间了#}
+                        {{ moment(question.time).fromNow(refresh=True) }}
+                    </small>
+                </div>
+                <p class="mb-1">{{ question.message }}</p>
+            </a>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>没有问题可显示。</p>
+{% endif %}
+
+{% endblock %}
+
+
+
+
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block content %}#}
+{#<p>Say Hello to the panda</p>#}
+{##}
+{#<form method="post">#}
+{#    Name: <input type="text" name="name" autocomplete="off" required>#}
+{#    Message: <input type="text" name="message" autocomplete="off" required>#}
+{#    欢迎来到: <input type="text" name="cipher" autocomplete="off" required>#}
+{#    <input class="btn" type="submit" name="submit" value="Add">#}
+{#</form>#}
+{##}
+{#<ul class="question-list">#}
+{#    {% for question in questions %}#}
+{#    <li>{{ question.name }} - {{ question.time }}</li>#}
+{#    <li>{{ question.message }}</li>#}
+{#    <span class="float-right">#}
+{#        <a>IMDb</a>#}
+{#    </span>#}
+{#    {% endfor %}#}
+{#</ul>#}
+
+{# <img alt="Panda Bamboo" class="bamboo" src="{{ url_for('static', filename='images/bamboo.gif') }}" title="da~mao~mao~"> #}
+{#{% endblock %}#}

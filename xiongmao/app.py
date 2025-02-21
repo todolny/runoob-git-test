@@ -15,7 +15,7 @@ app.config.from_object(config)
 db.init_app(app)#在这里使db和app绑定，绑定数据库
 mail.init_app(app)#绑定邮箱
 
-migrate = Migrate(app, db)
+migrate = Migrate(app, db)#第一个参数是Flask的实例，第二个参数是Sqlalchemy数据库实例，创建数据库迁移工具对象
 
 
 app.register_blueprint(qa_bp)

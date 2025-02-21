@@ -1,4 +1,5 @@
 from flask import Blueprint, request, render_template, g, redirect, url_for
+from sqlalchemy import or_
 
 from decorators import login_requried
 from exts import db
@@ -10,7 +11,15 @@ bp = Blueprint("qa", __name__, url_prefix="/")
 
 @bp.route("/")
 def index():
-    questions = QuestionModel.query.order_by(QuestionModel.create_time.desc()).all()# 获取所有问题，并按照创建时间降序排列
+    # 获取当前页码，默认为 1
+    page = request.args.get("page", 1, type=int)
+    # 分页，每页 10 条记录
+    questions = QuestionModel.query.order_by(QuestionModel.create_time.desc()).paginate(page=page, per_page=10)
+
+    # 确保 questions 是 Pagination 对象
+    print(f"当前页: {questions.page}, 总页数: {questions.pages}, 数据量: {len(questions.items)}")
+
+    # questions = QuestionModel.query.order_by(QuestionModel.create_time.desc()).all()# 获取所有问题，并按照创建时间降序排列
     return render_template("index.html", questions=questions)  # 渲染模板，并将问题列表传递给前端
 
 @bp.route("/qa/public", methods=['GET', 'POST'])
@@ -59,12 +68,22 @@ def public_answer():
 
 
 @bp.route('/search')
+@login_requried
 def search():
     #/search?q=flask
     #/search/<q>
     #post, request.form
     q = request.args.get("q")
-    questions = QuestionModel.query.filter(QuestionModel.title.contains(q)).all()
+    page = request.args.get("page", 1, type=int)
+    if q:
+        questions = QuestionModel.query.filter(
+            or_(
+                QuestionModel.title.contains(q),
+                QuestionModel.content.contains(q)
+            )
+        ).paginate(page=page, per_page=10) #page=1 这个地方暂时改为1，等之后再看怎么实现分页搜寻的具体代码改法，可以了，是缺少了前置的page参数
+    else:
+        questions = None
     return render_template("index.html", questions=questions)
 
 

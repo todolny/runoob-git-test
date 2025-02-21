@@ -7,7 +7,7 @@ from flask import Blueprint, render_template, request, jsonify, redirect, url_fo
 from exts import mail, db
 from flask_mail import Message
 from models import EmailModel
-from .forms import RegisterForm, LoginForm, ChangePasswordForm
+from .forms import RegisterForm, LoginForm, ChangePasswordForm, ForgetPassword
 from models import UserModel
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -133,6 +133,29 @@ def changePassword():
 
 @bp.route('/forgetPassword', methods=['GET', 'POST'])
 def forgetPassword():
-    if method == GET:
-        return render_template(forgetPassword)
+    if request.method == "GET":
+        return render_template("forget_password.html")
+    else:
+        form = ForgetPassword(request.form)
+        if form.validate():
+            email = form.email.data
+            password_new = form.password_new.data
+            password_confirm = form.password_confirm.data
+            user = UserModel.query.filter_by(email=email).first()
+            if not user:
+                print("用户在数据库中不存在,请检查邮箱！")
+                return redirect(url_for("auth.forgetPassword"))
+            else:
+                user.password = generate_password_hash(password_confirm)  # 更改密码，这点我是一直在纠结着的，就是在那想怎么让二次的新密码直接确认相同能够直接表现出来，看现在的用法是直接替换了，相同还好，不同是不是直接页面报错？
+                # db.session.add(user)   #居然是不要这个的，那提交的时候知道是往哪个数据库更新的吗，之后查一下，  因为上面指定了是user.password这个参数的值被替换掉的，所以不用在指定在哪个表里了
+                db.session.commit()
+                print(request.form)
+                return redirect(url_for('auth.login'))
+        else:
+            print(form.errors)
+            print(request.form)
+            return redirect(url_for("auth.changePassword"))
+
+
+
 

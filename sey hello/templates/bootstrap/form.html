@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Example</title>
+    <style>
+        .form-group {
+            margin-bottom: 20px; /* 每个字段之间的间距 */
+        }
+
+        .form-group label {
+            display: block; /* 标签显示为块级元素，使其在输入框上方 */
+            margin-bottom: 5px; /* 标签与输入框之间的间距 */
+        }
+
+        .btn {
+            margin-top: 10px; /* 按钮与输入字段的间距 */
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Message:</label>
+            <input type="text" id="message" name="message" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+            <label for="cipher">欢迎来到:</label>
+            <input type="text" id="cipher" name="cipher" autocomplete="off" required>
+        </div>
+        <input class="btn" type="submit" name="submit" value="Add">
+    </form>
+</body>
+</html>
